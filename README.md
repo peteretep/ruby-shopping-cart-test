@@ -1,3 +1,5 @@
+# Challenge details
+
 You have been asked to model a shopping basket.  We must be able to:
 
 * Add items to the shopping basket
@@ -12,4 +14,25 @@ Additionally, we must be able to calculate the total of the shopping basket acco
 
 There is no requirement to create a GUI but we must be able to see the code running or tests passing.
 
+# Implementation details
 
+*Prerequisites*
+This code was written with Ruby 2.5.3
+
+This implementation uses an sqlite database. You will need to have that installed.
+On Ubuntu:
+
+    sudo apt install libsqlite3-dev
+
+Clone the repository with:
+
+    git@github.com:peteretep/ruby-shopping-cart-test.git
+
+Install the required gems:
+
+    cd ruby-shopping-cart-test
+    bundle install --binstubs
+
+Run the tests with:
+
+    rspec
