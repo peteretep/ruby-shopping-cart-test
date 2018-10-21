@@ -98,6 +98,34 @@ RSpec.describe Basket do
       expect(testbasket.items.size).to equal 3
     end
   end
+  describe 'remove_item' do
+    it 'should remove an item from the basket' do
+      testbasket.items << item1
+      testbasket.items << item2
+      testbasket.remove_item(item1)
+      expect(testbasket.items.size).to equal 1
+    end
+    describe 'when multiples of same item' do
+      it 'should remove one item from the basket' do
+        testbasket.items << item1
+        testbasket.items << item1
+        testbasket.items << item1
+        testbasket.remove_item(item1)
+        expect(testbasket.items.size).to equal 2
+      end
+    end
+  end
+
+  describe 'empty_basket' do
+    it 'should empty the basket' do
+      testbasket.items << item1
+      testbasket.items << item1
+      testbasket.items << item2
+      testbasket.empty_basket
+      expect(testbasket.items.size).to equal 0
+    end
+  end
+
   describe '#subtotal' do
     it 'should give the sum of the items in the basket' do
       testbasket.items << item1

@@ -1,6 +1,7 @@
 require 'sqlite3'
 require 'active_record'
 require 'pry'
+
 ActiveRecord::Base.establish_connection(
   adapter: 'sqlite3',
   database: ':memory:'
@@ -42,12 +43,25 @@ class Basket < ActiveRecord::Base
   has_and_belongs_to_many :items
   validates :customer, presence: true
 
+  def remove_item(item)
+    return items.delete(item) unless duplicate_item_in_cart
+
+    # TODO: Figure out how to remove just one item,
+    # if there are many of the same type
+  end
+
+  def empty_basket
+    items.delete_all
+  end
+
   def subtotal
     subtotal = items.sum { |item| item[:price] }
     subtotal
   end
 
   def buy_one_get_one_free_applied
+    return subtotal unless duplicate_item_in_cart
+
     bogof_items = []
     items.group(:id).each do |item|
       number_of_this_item = items.group(:id).count[item.id]
@@ -77,6 +91,12 @@ class Basket < ActiveRecord::Base
 
   def total_in_major_unit
     apply_loyalty_card_discount / 100
+  end
+
+  private
+
+  def duplicate_item_in_cart
+    items.group(:id).count.values.max > 1
   end
 end
 
