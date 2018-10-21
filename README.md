@@ -16,7 +16,8 @@ There is no requirement to create a GUI but we must be able to see the code runn
 
 # Implementation details
 
-*Prerequisites*
+**Prerequisites**
+
 This code was written with Ruby 2.5.3
 
 This implementation uses an sqlite database. You will need to have that installed.
@@ -36,3 +37,17 @@ Install the required gems:
 Run the tests with:
 
     rspec
+
+Test code is in the `spec/cart_spec.rb` file. RSpec is used.
+
+Database connection / creation code is in the `lib/db.rb` file. Sqlite is used and the database is be created in memory for development purposes.
+
+There are four tables created, for customers, items, baskets and a basket_item relationship table.
+
+Main code lives in the `lib/cart.rb` file.
+Activerecord ORM is used.
+
+### Known issues
+
+* Items with the same name / price can be created
+* If more than one of the same item is added to a basket, the `remove_item` method will remove all of them. This behaviour is captured in a test, which is currently failing.
