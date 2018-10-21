@@ -110,7 +110,7 @@ RSpec.describe Basket do
     it 'should bogof it two of the same items' do
       testbasket.items << item1
       testbasket.items << item1
-      testbasket.items << item2 
+      testbasket.items << item2
       expect(testbasket.buy_one_get_one_free_applied).to equal 650
     end
 
@@ -118,7 +118,7 @@ RSpec.describe Basket do
       testbasket.items << item1
       testbasket.items << item1
       testbasket.items << item1
-      testbasket.items << item2 
+      testbasket.items << item2
       expect(testbasket.buy_one_get_one_free_applied).to equal 960
     end
     it 'should bogof correctly if four of the same items' do
@@ -135,7 +135,6 @@ RSpec.describe Basket do
       testbasket.items << expensive_item
       testbasket.apply_ten_percent_discount
       expect(testbasket.apply_ten_percent_discount).to equal 180_00
-
     end
     it 'should give ten percent discount on total greater than 20 after bogof' do
       testbasket.items << expensive_item
@@ -150,12 +149,12 @@ RSpec.describe Basket do
   describe '#apply_loyalty_discount' do
     let(:non_member) do
       Customer.create!(name: 'Peter',
-                        email: 'peter@armstong.ie')
+                       email: 'peter@armstong.ie')
     end
     let(:member) do
       Customer.create!(name: 'John',
-                        email: 'john@armstong.ie',
-                        member: true)
+                       email: 'john@armstong.ie',
+                       member: true)
     end
     it 'should apply loyalty discount if customer is a member' do
       members_basket = Basket.create!(customer: member)
@@ -163,7 +162,6 @@ RSpec.describe Basket do
       members_basket.items << item2
 
       expect(members_basket.apply_loyalty_card_discount).to equal 637
-
     end
     it 'should not apply loyalty discount if customer is a member' do
       members_basket = Basket.create!(customer: non_member)

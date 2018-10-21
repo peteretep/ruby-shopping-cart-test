@@ -48,7 +48,15 @@ class Basket < ActiveRecord::Base
   end
 
   def buy_one_get_one_free_applied
-    items.group(:id).sum { |item| item[:price]}
+    bogof_items = []
+    items.group(:id).each do |item|
+      number_of_this_item = items.group(:id).count[item.id]
+      bogof_number_of_item = (number_of_this_item.to_f / 2).ceil
+      bogof_number_of_item.times do
+        bogof_items.push(item)
+      end
+    end
+    bogof_items.sum { |item| item[:price] }
   end
 
   def apply_ten_percent_discount
@@ -66,15 +74,20 @@ class Basket < ActiveRecord::Base
     total = buy_one_get_one_free_applied - discount
     total.round
   end
+
+  def total_in_major_unit
+    apply_loyalty_card_discount / 100
+  end
 end
 
 # Item class - a product that can go in a basket
+# Prices are in minor unit - pence or cents etc
 class Item < ActiveRecord::Base
   validates :name, presence: true
   validates :price, presence: true, numericality: { greater_than_or_equal_to: 0 }
   has_and_belongs_to_many :baskets
 
   def price_in_major_unit
-    self.price / 100
+    price / 100
   end
 end
