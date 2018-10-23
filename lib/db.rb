@@ -24,5 +24,6 @@ ActiveRecord::Schema.define do
   create_table :baskets_items, force: true do |table|
     table.belongs_to :basket
     table.belongs_to :item
+    table.integer :count
   end
 end

@@ -15,9 +15,16 @@ class Basket < ActiveRecord::Base
   has_and_belongs_to_many :items
   validates :customer, presence: true
 
+  def add_item(item)
+    items << item unless items.exists?(item.id)
+  #   items.contains?(item)
+  binding.pry
+  end
+
   def remove_item(item)
     return items.delete(item) unless duplicate_item_in_cart
-
+# binding.pry
+items.first.delete
     # TODO: Figure out how to remove just one item,
     # if there are many of the same type
   end
