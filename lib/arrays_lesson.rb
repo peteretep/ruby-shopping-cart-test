@@ -1,7 +1,9 @@
 # collections / groups of things
 # arrays
 
+# Arrays are indexed
 # arrays are like lockers
+
 # with numbers on them
 
 # Terminal - shortcut
@@ -10,6 +12,10 @@
 band = ['trumpet', 'sax', 'sax', 'drums']
 # square brackets
 band
+# keys to arrays are integers
+# in ruby we don't need to say how big the array is, it grows automatically
+
+
 band[1]
 
 # zero indexed
